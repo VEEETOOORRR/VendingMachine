@@ -13,10 +13,16 @@ module control_unit (
     output logic change_out,
     output logic error,
 
-    output logic credit_load,
-
     output logic [7:0] display,
     output logic [2:0] state_out
+
+    // SINAIS INTERMÓDULOS
+
+    input logic subtracao,          // Output do subtrator
+
+    output logic credit_load,       // Ativa acumulador
+    output logic mem_read,          // Ativa leitura da memória - price e stock
+    output logic mem_write,         // Ativa escrita da memória - decrementa stock
 
 );
 
@@ -26,10 +32,13 @@ module control_unit (
 
     assign state_out = state;
 
+    logic [7:0] troco;
+
 
     always_ff @(posedge clk) begin
         if (rst || cancel) begin
-            state <= IDLE;          
+            state <= IDLE;        
+            troco <= 0;  
         
         end else begin
             case (state)
@@ -47,16 +56,20 @@ module control_unit (
                 end
 
                 CHECK: begin
-
+                    if(can_sell) state <= DISPENSE;
+                    else state <= ERROR;
                 end
 
                 DISPENSE: begin
+                    state <= CHANGE;
                 end
 
                 CHANGE: begin
+                    troco <= subtracao;
                 end
 
                 ERROR: begin
+                    if (cancel) state <= IDLE;
                 end
 
                 default: begin
@@ -86,6 +99,7 @@ module control_unit (
             end
 
             CHANGE: begin
+
             end
 
             ERROR: begin
@@ -100,3 +114,5 @@ module control_unit (
     end
 
 endmodule
+
+
