@@ -2,9 +2,10 @@ module subtractor (
     input logic credit,
     input logic price,
 
-    output logic result
+    output logic change
 );
 
-    assign result = credit - price;
+    // Módulo puramente combinacional
+    assign change = credit - price;
 
 endmodule
