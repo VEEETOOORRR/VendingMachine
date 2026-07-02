@@ -72,6 +72,9 @@ module memory_vending (
                         stock <= snack[3:0];
                     end
                 endcase
+            end else begin
+                price <= 4'b0;
+                stock <= 4'b0;
             end
         end
     end
