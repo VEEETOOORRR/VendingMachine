@@ -1,8 +1,8 @@
 module subtractor (
-    input logic credit,
-    input logic price,
+    input logic [7:0] credit,
+    input logic [7:0] price,
 
-    output logic change
+    output logic [7:0] change
 );
 
     // Módulo puramente combinacional
