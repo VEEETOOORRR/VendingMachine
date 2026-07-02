@@ -7,7 +7,7 @@ module memory_vending (
     input logic mem_read,
     input logic mem_write,
 
-
+    output logic [7:0] price,
     output logic [7:0] stock,
 
 );
@@ -49,14 +49,31 @@ module memory_vending (
                         snack <= snack - 1;
                     end
                 endcase
+
+            end else if(mem_read) begin
+                case (item_t'(sel_item)) 
+                    CAFE: begin
+                        price <= cafe[7:4];
+                        stock <= cafe[3:0];
+                    end
+
+                    AGUA: begin
+                        price <= agua[7:4];
+                        stock <= agua[3:0];
+                    end
+
+                    SUCO: begin
+                        price <= suco[7:4];
+                        stock <= suco[3:0];
+                    end
+
+                    SNACK: begin
+                        price <= snack[7:4];
+                        stock <= snack[3:0];
+                    end
+                endcase
             end
         end
-    
     end
-
-    always_comb begin
-    
-    end
-
 
 endmodule
