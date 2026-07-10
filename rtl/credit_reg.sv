@@ -3,7 +3,7 @@ module credit_reg(
     input logic clk,
     input logic rst,
     input logic cancel,
-    input logic [1:0] coin_in, // Moeda que tá entrando, registrada em reg_coin_in
+    input logic [1:0] coin_in,  // Moeda que tá entrando, registrada em reg_coin_in
 
     // SINAIS DA CONTROL UNIT
     input logic credit_load,    // Sinal que aciona o registrador
@@ -30,8 +30,8 @@ module credit_reg(
             reg_coin_in <= coin_in;
 
             if (credit_load) begin
-                if (!op) registrador_credito <= registrador_credito + coin_value;
-                else if (op) registrador_credito <= 8'b0;
+                if      (!credit_op) registrador_credito <= registrador_credito + coin_value;
+                else if (credit_op)  registrador_credito <= 8'b0;
             end
         end
     end
