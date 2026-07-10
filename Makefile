@@ -11,6 +11,7 @@ NETLIST_DIR = netlist
 # ==========================================
 RTL_FILES = $(RTL_DIR)/*.sv
 TB_FILES  = $(TB_DIR)/tb_vending.sv
+PKG_FILES = $(RTL_DIR)/pkg/vending_pkg.sv
 # Aponta para o arquivo mapeado (sintetizado)
 NETLIST_FILES = $(NETLIST_DIR)/porta_and_mapeada.sv
 
@@ -21,13 +22,13 @@ TOP = tb_vending
 # 1. Verificação de sintaxe (RTL)
 # ==========================================
 syntax:
-	vlogan -full64 -sverilog -kdb +lint=all $(RTL_FILES) $(TB_FILES)
+	vlogan -full64 -sverilog -kdb +lint=all -timescale=1ns/1ps $(PKG_FILES) $(RTL_FILES) $(TB_FILES)
 
 # ==========================================
 # 2. Compilação / Elaboração (RTL)
 # ==========================================
 compile: syntax
-	vcs -full64 -debug_access+all -kdb $(TOP)
+	vcs -full64 -debug_access+all -kdb -timescale=1ns/1ps $(TOP)
     
 # ==========================================
 # 3. Rodar simulação (RTL)

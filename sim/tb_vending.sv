@@ -1,5 +1,3 @@
-`timescale 1ns/1ps
-
 module tb_vending;
 
     import vending_pkg::*;
@@ -62,9 +60,9 @@ module tb_vending;
     // 3. Tarefa apply_coin(value) que aplica uma moeda e aguarda 1 ciclo
     task apply_coin(input logic [1:0] value);
         begin
-            @(posedge clk);
+            @(posedge clk)
             coin_in <= value;
-            @(posedge clk);
+            @(posedge clk)
             coin_in <= 2'b00;
         end
     endtask
@@ -83,9 +81,9 @@ module tb_vending;
             end
             #10;
             // Pressiona confirm
-            @(posedge clk);
+            @(posedge clk)
             confirm <= 1;
-            @(posedge clk);
+            @(posedge clk)
             confirm <= 2'b0;
             
             // Aguarda conclusão (IDLE ou ERROR)
@@ -93,9 +91,9 @@ module tb_vending;
             #1; // Pequena margem de tempo para propagação das saídas
             if (state_out == ERROR) begin
                 $display("[TB] Compra falhou (FSM em estado ERROR).");
-                @(posedge clk);
+                @(posedge clk)
                 cancel <= 1;
-                @(posedge clk);
+                @(posedge clk)
                 cancel <= 0;
                 wait(state_out == IDLE);
             end else begin
@@ -133,9 +131,9 @@ module tb_vending;
         // 2. Reset inicial por 2 ciclos de clock
         $display("[TB] Aplicando Reset por 2 ciclos de clock...");
         rst = 1;
-        repeat(2) @(posedge clk);
+        repeat(2) @(posedge clk)
         rst = 0;
-        @(posedge clk);
+        @(posedge clk)
         check(IDLE, state_out, "Verificação de Reset");
 
         // Caso de teste 1: Comprar Cafe (Preço 25) com exatamente 25
