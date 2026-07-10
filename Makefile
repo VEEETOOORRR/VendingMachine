@@ -2,20 +2,20 @@
 # Diretórios
 # ==========================================
 RTL_DIR = rtl
-TB_DIR  = tb
+TB_DIR  = sim
 REPORTS_DIR = reports
 NETLIST_DIR = netlist
 
 # ==========================================
 # Arquivos
 # ==========================================
-RTL_FILES = $(RTL_DIR)/porta_and.sv
-TB_FILES  = $(TB_DIR)/tb_porta_and.sv
+RTL_FILES = $(RTL_DIR)/*.sv
+TB_FILES  = $(TB_DIR)/tb_vending.sv
 # Aponta para o arquivo mapeado (sintetizado)
 NETLIST_FILES = $(NETLIST_DIR)/porta_and_mapeada.sv
 
 # Top do testbench
-TOP = tb_porta_and
+TOP = tb_vending
 
 # ==========================================
 # 1. Verificação de sintaxe (RTL)
