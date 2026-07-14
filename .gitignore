@@ -5,3 +5,10 @@ desktop.ini
 
 .vcd
 AN.DB/
+
+libs/
+work/
+
+*.log
+*.svf
+netlist/
