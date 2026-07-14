@@ -3,57 +3,53 @@
 # ==========================================
 RTL_DIR = rtl
 TB_DIR  = sim
-REPORTS_DIR = reports
-NETLIST_DIR = netlist
-
+SCRIPTS_DIR = synth
+REPORTS_DIR = $(SCRIPTS_DIR)/reports
+NETLIST_DIR = $(SCRIPTS_DIR)/netlist
 # ==========================================
 # Arquivos
 # ==========================================
 RTL_FILES = $(RTL_DIR)/*.sv
-TB_FILES  = $(TB_DIR)/tb_vending.sv
+TB_FILES  = $(TB_DIR)/tb_vending2.sv
 PKG_FILES = $(RTL_DIR)/pkg/vending_pkg.sv
-# Aponta para o arquivo mapeado (sintetizado)
-NETLIST_FILES = $(NETLIST_DIR)/porta_and_mapeada.sv
 
 # Top do testbench
 TOP = tb_vending
+NETLIST_FILE = $(NETLIST_DIR)/vending_top_mapeada.v
+SIMV_POST_SYNTH = simv_post_synth
+LIBRARY_FILE = libs/saed32nm.v
 
 # ==========================================
-# 1. Verificação de sintaxe (RTL)
+# 1. Parâmetros de cada ferramenta
+# ==========================================
+VLOGAN_PARAMS = -full64 \
+				-sverilog \
+				-timescale=1ns/1ps \
+				-kdb \
+				+lint=all
+
+VCS_PARAMS = -full64 \
+			 -timescale=1ns/1ps \
+			 -debug_access+all \
+			 -kdb \
+			 +notimingchecks \
+             +nospecify
+
+# ==========================================
+# 1. Verificação de sintaxe
 # ==========================================
 syntax:
-	vlogan -full64 -sverilog -kdb +lint=all -timescale=1ns/1ps $(PKG_FILES) $(RTL_FILES) $(TB_FILES)
+	vlogan $(VLOGAN_PARAMS) $(PKG_FILES) $(RTL_FILES) $(TB_FILES)
 
 # ==========================================
-# 2. Compilação / Elaboração (RTL)
+# 2. Compilação / Elaboração
 # ==========================================
 compile: syntax
-	vcs -full64 -debug_access+all -kdb -timescale=1ns/1ps $(TOP)
-    
+	vcs $(VCS_PARAMS) $(TOP)
 # ==========================================
-# 3. Rodar simulação (RTL)
+# 3. Rodar simulação
 # ==========================================
 run: compile
-	./simv
-
-# ==========================================
-# 4. Rodar Síntese (Nova Tarefa)
-# Cria as pastas organizadas e roda o script
-# ==========================================
-synth:
-	mkdir -p $(REPORTS_DIR) $(NETLIST_DIR)
-	dc_shell -f scripts/synth.tcl | tee $(REPORTS_DIR)/synthesis.log
-
-# ==========================================
-# 5. Simulação Pós-Síntese (Nova Tarefa)
-# ==========================================
-# Obs: Dependendo da biblioteca, pode ser necessário incluir o arquivo Verilog das células padrão aqui no vlogan
-
-compile_post_synth:
-	vlogan -full64 -sverilog -kdb +lint=all -timescale=1ns/1ps $(NETLIST_FILES) $(TB_FILES)
-	vcs -full64 -debug_access+all -kdb $(TOP)
-
-post_synth_sim: compile_post_synth
 	./simv
 
 # ==========================================
@@ -63,9 +59,39 @@ wave:
 	verdi -ssf waves.fsdb &
 
 # ==========================================
-# Limpeza
+# Síntese
 # ==========================================
-clean:
+synth:
+	dc_shell -f $(SCRIPTS_DIR)/synth.tcl
+
+# ==========================================
+# Simulação pós síntese
+# ==========================================
+sim_netlist: clean_sim synth
+	vlogan $(VLOGAN_PARAMS) $(PKG_FILES) $(LIBRARY_FILE) $(NETLIST_FILE) $(TB_FILES)
+	vcs $(VCS_PARAMS) $(TOP) -o $(SIMV_POST_SYNTH)
+	./$(SIMV_POST_SYNTH)
+
+# ==========================================
+# Limpeza da síntese
+# ==========================================
+clean_synth:
+	rm -rf \
+		./accumulator.ddc \
+		./alib-52 \
+		./default.svf \
+		./work* \
+		$(SYNTH_DIR)/*.rpt \
+		$(SYNTH_DIR)/*.ddc \
+		$(SYNTH_DIR)/*.db \
+		$(SYNTH_DIR)/*_syn.v \
+		$(NETLIST_DIR) \
+		$(REPORTS_DIR)
+
+# ==========================================
+# Limpeza da simulação
+# ==========================================
+clean_sim:
 	rm -rf \
 		csrc \
 		simv* \
@@ -78,9 +104,11 @@ clean:
 		.vlogan* \
 		*.fsdb \
 		*.log \
-		*.svf \
-		alib-52 \
-		command.log \
-		default.svf \
-		$(REPORTS_DIR) \
-		$(NETLIST_DIR)
+		vfastLog
+
+# ==========================================
+# Limpeza total
+# ==========================================
+clean: clean_sim clean_synth
+
+.PHONY: syntax compile run wave synth clean clean_sim clean_synth
