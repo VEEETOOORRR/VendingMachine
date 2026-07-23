@@ -6,9 +6,7 @@ package vending_pkg;
         CHECK     = 3'b010,
         DISPENSE  = 3'b011,
         CHANGE    = 3'b100,
-        ERROR     = 3'b101,
-        CHECK_ACTIVATE_MEMORY = 3'b110,
-        CHANGE_ACTIVATE_MEMORY = 3'b111
+        ERROR     = 3'b101
     } state_t;
 
     typedef enum logic [1:0] {

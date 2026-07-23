@@ -25,51 +25,56 @@ module control_unit (
 
     import vending_pkg::*;
 
+    logic op_valida_flag; // Flag para ativar memória somente se a venda se concretizar. Evita descontar do crédito ao devolver o troco quando a venda é cancelada ou quando o saldo é insuficiente.
+
     state_t state;
 
     always_ff @(posedge clk) begin
-        if (rst || cancel) begin
+        if (rst) begin
             state <= IDLE;
+            op_valida_flag <= 0;
         end else begin
             case (state)
                 IDLE: begin
+                    op_valida_flag <= 0;
                     if(coin_in != 2'b00) begin
                         state <= COLLECT; 
                     end
                 end
 
                 COLLECT: begin
-                    if (confirm) begin
-                        state <= CHECK_ACTIVATE_MEMORY;
-                    end
-                end
-
-                CHECK_ACTIVATE_MEMORY: begin
-                    state <= CHECK;
+                    if (cancel) begin
+                        op_valida_flag <= 0;
+                        state <= CHANGE;
+                    end else if (confirm) begin
+                        op_valida_flag <= 1;
+                        state <= CHECK;
+                    end 
                 end
 
                 CHECK: begin
                     if (can_sell) begin
+                        op_valida_flag <= 1;
                         state <= DISPENSE;
                     end else begin
+                        op_valida_flag <= 0;
                         state <= ERROR;
                     end
                 end
 
                 DISPENSE: begin
-                    state <= CHANGE_ACTIVATE_MEMORY;
-                end
-
-                CHANGE_ACTIVATE_MEMORY: begin
                     state <= CHANGE;
+                    op_valida_flag <= 1;
                 end
 
                 CHANGE: begin
                     state <= IDLE;
+                    op_valida_flag <= 0;
                 end
 
                 ERROR: begin
-                    if (cancel) state <= IDLE;
+                    op_valida_flag <= 0;
+                    if (cancel) state <= CHANGE;
                 end
 
                 default: begin
@@ -99,10 +104,6 @@ module control_unit (
                 credit_op = 0;
             end
 
-            CHECK_ACTIVATE_MEMORY: begin
-                mem_read = 1;
-            end
-
             CHECK: begin
                 mem_read = 1;
             end
@@ -112,11 +113,12 @@ module control_unit (
                 mem_write = 1;
             end
 
-            CHANGE_ACTIVATE_MEMORY: begin
-                mem_read = 1;
-            end
-
             CHANGE: begin
+                if(op_valida_flag) begin
+                    mem_read = 1;
+                end else begin
+                    mem_read = 0;
+                end
                 credit_load = 1;
                 credit_op = 1;
             end
