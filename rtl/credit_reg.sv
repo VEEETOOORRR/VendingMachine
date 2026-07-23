@@ -22,7 +22,7 @@ module credit_reg(
     logic [7:0] coin_value;
 
     always_ff @(posedge clk) begin
-        if(rst || cancel) begin
+        if(rst) begin
             reg_coin_in <= 2'b0;
             registrador_credito <= 8'b0;
         end else begin
