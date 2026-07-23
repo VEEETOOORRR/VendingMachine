@@ -14,7 +14,6 @@ module memory_vending (
 
     logic [15:0] cafe, agua, suco, snack;
 
-    // 1. Escrita síncrona na memória
     always_ff @(posedge clk) begin
         if (rst) begin
             cafe  <= {8'h19, 8'h05};
@@ -31,7 +30,6 @@ module memory_vending (
         end
     end
 
-    // 2. Leitura Combinacional (Quebra o caminho síncrono ultra-rápido)
     always_comb begin
         if (mem_read) begin
             case (item_t'(sel_item)) 

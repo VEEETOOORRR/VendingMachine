@@ -5,7 +5,7 @@
 # 1. Definição do Clock Principal
 # Cria um clock chamado 'clk' com período de 10.0 ns (100 MHz)
 # e o associa à porta física 'clk' do seu módulo.
-create_clock -name clk -period 1000 [get_ports clk]
+create_clock -name clk -period 10 [get_ports clk]
 
 # 2. Incerteza do Clock (Jitter/Skew)
 # Adiciona uma margem de segurança realista para a variação do sinal de clock.

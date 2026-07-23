@@ -61,6 +61,10 @@ puts "--> Timing: Relatorio salvo em: ./reports/timing_relatorio.rpt"
 report_power > $reports_dir/power.rpt
 puts "--> Power: Relatorio salvo em: ./reports/power.rpt"
 
+report_qor > $reports_dir/teste.rpt
+
+report_timing -delay_type max -max_paths 10 > $reports_dir/test2.rpt
+
 # SETUP: report_constraint filtra por padrão violações de Max Delay (Setup)
 report_constraint -all_violators > $reports_dir/setup_violations.rpt
 puts "--> Setup Violations: Relatorio salvo em: $reports_dir/setup_violations.rpt"

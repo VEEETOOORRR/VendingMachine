@@ -10,7 +10,7 @@ NETLIST_DIR = $(SCRIPTS_DIR)/netlist
 # Arquivos
 # ==========================================
 RTL_FILES = $(RTL_DIR)/*.sv
-TB_FILES  = $(TB_DIR)/tb_vending2.sv
+TB_FILES  = $(TB_DIR)/tb_vending.sv
 PKG_FILES = $(RTL_DIR)/pkg/vending_pkg.sv
 
 # Top do testbench
