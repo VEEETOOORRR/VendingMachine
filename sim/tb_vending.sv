@@ -152,7 +152,7 @@ module tb_vending;
         clear_triggers = 0;
 
         $display("==================================================");
-        $display("Iniciando Testbench - Cenarios Obrigatorios (GLS Safe)");
+        $display("Iniciando Testbench");
         $display("==================================================");
 
         // Reset inicial SEGURO (negedge)

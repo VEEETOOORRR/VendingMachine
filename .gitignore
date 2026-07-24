@@ -12,3 +12,5 @@ work/
 *.log
 *.svf
 netlist/
+
+alib-52/

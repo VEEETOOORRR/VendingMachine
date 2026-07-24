@@ -1,0 +1,126 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : vending_top
+Version: X-2025.06-SP2
+Date   : Fri Jul 24 18:23:29 2026
+****************************************
+
+
+   max_delay/setup ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   change_out[7]                2.70           2.79 f        -0.09  (VIOLATED)
+   change_out[6]                2.70           2.78 f        -0.08  (VIOLATED)
+   change_out[5]                2.70           2.76 r        -0.06  (VIOLATED)
+   change_out[4]                2.70           2.72 r        -0.02  (VIOLATED)
+
+
+   min_delay/hold ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   mem/cafe_reg[15]/D           0.49           0.11 f        -0.39  (VIOLATED)
+   mem/suco_reg[12]/D           0.49           0.11 f        -0.39  (VIOLATED)
+   cont_u/op_valida_flag_reg/SETB
+                                0.54           0.15 f        -0.38  (VIOLATED)
+   mem/snack_reg[0]/D           0.49           0.12 f        -0.38  (VIOLATED)
+   mem/snack_reg[8]/D           0.49           0.12 f        -0.37  (VIOLATED)
+   mem/suco_reg[2]/D            0.49           0.12 f        -0.37  (VIOLATED)
+   mem/cafe_reg[6]/D            0.49           0.12 f        -0.37  (VIOLATED)
+   mem/suco_reg[6]/D            0.49           0.12 f        -0.37  (VIOLATED)
+   mem/snack_reg[2]/D           0.49           0.12 f        -0.37  (VIOLATED)
+   mem/snack_reg[6]/D           0.49           0.12 f        -0.37  (VIOLATED)
+   mem/agua_reg[6]/D            0.49           0.12 f        -0.37  (VIOLATED)
+   mem/cafe_reg[2]/D            0.49           0.13 f        -0.37  (VIOLATED)
+   mem/agua_reg[2]/D            0.49           0.13 f        -0.37  (VIOLATED)
+   mem/agua_reg[0]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/suco_reg[15]/D           0.49           0.13 f        -0.36  (VIOLATED)
+   mem/snack_reg[15]/D          0.49           0.13 f        -0.36  (VIOLATED)
+   mem/agua_reg[15]/D           0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[7]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[3]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[10]/D           0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[13]/D           0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[9]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[1]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/suco_reg[4]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/cafe_reg[4]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/agua_reg[4]/D            0.49           0.13 f        -0.36  (VIOLATED)
+   mem/snack_reg[4]/D           0.49           0.13 f        -0.36  (VIOLATED)
+   mem/agua_reg[10]/D           0.49           0.14 f        -0.36  (VIOLATED)
+   mem/suco_reg[0]/D            0.49           0.14 f        -0.36  (VIOLATED)
+   mem/cafe_reg[0]/D            0.49           0.14 f        -0.36  (VIOLATED)
+   mem/agua_reg[1]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/agua_reg[8]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/agua_reg[5]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[5]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/cafe_reg[5]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/suco_reg[5]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[12]/D          0.49           0.14 f        -0.35  (VIOLATED)
+   mem/suco_reg[3]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/suco_reg[7]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[9]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[3]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/agua_reg[7]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/suco_reg[10]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[7]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/agua_reg[11]/D           0.49           0.14 f        -0.35  (VIOLATED)
+   mem/agua_reg[3]/D            0.49           0.14 f        -0.35  (VIOLATED)
+   mem/snack_reg[11]/D          0.49           0.14 f        -0.35  (VIOLATED)
+   mem/cafe_reg[14]/D           0.49           0.15 f        -0.35  (VIOLATED)
+   mem/suco_reg[8]/D            0.48           0.14 r        -0.35  (VIOLATED)
+   mem/suco_reg[13]/D           0.49           0.15 f        -0.34  (VIOLATED)
+   mem/snack_reg[13]/D          0.48           0.14 r        -0.34  (VIOLATED)
+   mem/suco_reg[11]/D           0.49           0.15 f        -0.34  (VIOLATED)
+   mem/cafe_reg[11]/D           0.49           0.15 f        -0.34  (VIOLATED)
+   mem/suco_reg[14]/D           0.48           0.14 r        -0.34  (VIOLATED)
+   mem/agua_reg[13]/D           0.48           0.15 r        -0.34  (VIOLATED)
+   mem/snack_reg[14]/D          0.48           0.15 r        -0.34  (VIOLATED)
+   mem/agua_reg[12]/D           0.49           0.16 f        -0.34  (VIOLATED)
+   cred_r/registrador_credito_reg[7]/D
+                                0.49           0.16 f        -0.34  (VIOLATED)
+   mem/agua_reg[14]/D           0.49           0.16 f        -0.34  (VIOLATED)
+   cred_r/registrador_credito_reg[0]/D
+                                0.49           0.16 f        -0.33  (VIOLATED)
+   cred_r/registrador_credito_reg[2]/D
+                                0.49           0.16 f        -0.33  (VIOLATED)
+   cred_r/registrador_credito_reg[1]/D
+                                0.49           0.16 f        -0.33  (VIOLATED)
+   mem/suco_reg[9]/RSTB         0.47           0.14 f        -0.33  (VIOLATED)
+   cred_r/registrador_credito_reg[5]/D
+                                0.49           0.16 f        -0.33  (VIOLATED)
+   cred_r/registrador_credito_reg[3]/D
+                                0.49           0.16 f        -0.33  (VIOLATED)
+   mem/snack_reg[1]/RSTB        0.47           0.15 f        -0.33  (VIOLATED)
+   mem/suco_reg[1]/RSTB         0.47           0.15 f        -0.33  (VIOLATED)
+   cred_r/registrador_credito_reg[6]/D
+                                0.49           0.17 f        -0.32  (VIOLATED)
+   cred_r/registrador_credito_reg[4]/D
+                                0.49           0.17 f        -0.32  (VIOLATED)
+   cont_u/state_reg[1]/D        0.49           0.18 f        -0.32  (VIOLATED)
+   cont_u/state_reg[2]/D        0.49           0.18 f        -0.32  (VIOLATED)
+   cont_u/state_reg[0]/D        0.49           0.19 f        -0.31  (VIOLATED)
+   mem/cafe_reg[12]/D           0.49           0.19 f        -0.31  (VIOLATED)
+   mem/agua_reg[9]/D            0.49           0.19 f        -0.31  (VIOLATED)
+   mem/snack_reg[10]/RSTB       0.47           0.17 f        -0.30  (VIOLATED)
+   mem/cafe_reg[8]/RSTB         0.47           0.17 f        -0.30  (VIOLATED)
+   cont_u/op_valida_flag_reg/RSTB
+                                0.47           0.19 f        -0.28  (VIOLATED)
+
+
+   max_capacitance
+
+                             Required        Actual
+   Net                      Capacitance    Capacitance       Slack
+   -----------------------------------------------------------------
+   cont_u/n32                   8.00           8.08          -0.08  (VIOLATED)
+
+   -----------------------------------------------------------------
+   Total                      1                  -0.08  
+
+1

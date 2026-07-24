@@ -1,0 +1,67 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : vending_top
+Version: X-2025.06-SP2
+Date   : Fri Jul 24 18:23:29 2026
+****************************************
+
+Operating Conditions: tt1p05v25c   Library: saed32rvt_tt1p05v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: sel_item[1]
+              (input port clocked by clk)
+  Endpoint: change_out[7]
+            (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  vending_top        8000                  saed32rvt_tt1p05v25c
+  memory_vending     8000                  saed32rvt_tt1p05v25c
+  subtractor         ForQA                 saed32rvt_tt1p05v25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     2.00       2.00 f
+  sel_item[1] (in)                         0.00       2.00 f
+  mem/sel_item[1] (memory_vending)         0.00       2.00 f
+  mem/U40/Y (INVX0_RVT)                    0.03       2.03 r
+  mem/U41/Y (NAND3X0_RVT)                  0.05       2.08 f
+  mem/U117/Y (OA22X1_RVT)                  0.06       2.13 f
+  mem/U119/Y (NAND2X0_RVT)                 0.05       2.18 r
+  mem/price[0] (memory_vending)            0.00       2.18 r
+  sub/price[0] (subtractor)                0.00       2.18 r
+  sub/U2/Y (AND2X1_RVT)                    0.06       2.24 r
+  sub/U10/Y (NAND2X0_RVT)                  0.04       2.28 f
+  sub/U26/Y (NAND3X0_RVT)                  0.05       2.32 r
+  sub/intadd_1/U7/CO (FADDX1_RVT)          0.09       2.42 r
+  sub/U8/CO (FADDX1_RVT)                   0.10       2.51 r
+  sub/U3/Y (AO22X1_RVT)                    0.06       2.57 r
+  sub/U9/Y (AO22X1_RVT)                    0.05       2.62 r
+  sub/U1/Y (AO22X1_RVT)                    0.05       2.67 r
+  sub/U22/Y (XOR2X2_RVT)                   0.08       2.75 f
+  sub/change[7] (subtractor)               0.00       2.75 f
+  U23/Y (AND2X1_RVT)                       0.04       2.79 f
+  change_out[7] (out)                      0.00       2.79 f
+  data arrival time                                   2.79
+
+  clock clk (rise edge)                    6.20       6.20
+  clock network delay (ideal)              0.00       6.20
+  clock uncertainty                       -0.50       5.70
+  output external delay                   -3.00       2.70
+  data required time                                  2.70
+  -----------------------------------------------------------
+  data required time                                  2.70
+  data arrival time                                  -2.79
+  -----------------------------------------------------------
+  slack (VIOLATED)                                   -0.09
+
+
+1

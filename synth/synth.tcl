@@ -45,12 +45,13 @@ puts "INICIANDO SÍNTESE (SystemVerilog)..."
 puts "============================================================"
 
 set_fix_hold [all_clocks]
+set_ungroup [get_designs *] false
 compile_ultra
 
 # 8. RELATÓRIOS PÓS-SÍNTESE (SALVANDO NA PASTA REPORTS)
-puts "\n============================================================"
+puts "\n=============================================================="
 puts "RELATÓRIOS PÓS-SÍNTESE"
-puts "============================================================"
+puts "=============================================================="
 
 report_area -hierarchy > $reports_dir/area_pos.rpt
 puts "\n--> Area: Relatorio salvo em: ./reports/area_pos.rpt"
@@ -61,10 +62,6 @@ puts "--> Timing: Relatorio salvo em: ./reports/timing_relatorio.rpt"
 report_power > $reports_dir/power.rpt
 puts "--> Power: Relatorio salvo em: ./reports/power.rpt"
 
-report_qor > $reports_dir/teste.rpt
-
-report_timing -delay_type max -max_paths 10 > $reports_dir/test2.rpt
-
 # SETUP: report_constraint filtra por padrão violações de Max Delay (Setup)
 report_constraint -all_violators > $reports_dir/setup_violations.rpt
 puts "--> Setup Violations: Relatorio salvo em: $reports_dir/setup_violations.rpt"
@@ -74,6 +71,10 @@ report_constraint -all_violators -min_delay > $reports_dir/hold_violations.rpt
 puts "--> Hold Violations: Relatorio salvo em: $reports_dir/hold_violations.rpt"
 
 # 9. EXPORTAR NETLIST (SALVANDO NA PASTA NETLIST)
+puts "\n=============================================================="
+puts "NETLISTS GERADAS"
+puts "=============================================================="
+
 write -format verilog -hierarchy -output $netlist_dir/vending_top_mapeada.v
 puts "\n--> Netlist Verilog salvo em: $netlist_dir/vending_top_mapeada.v"
 
@@ -81,7 +82,7 @@ write -format ddc -hierarchy -output $netlist_dir/vending_top_mapeada.ddc
 puts "--> Netlist DDC salvo em: $netlist_dir/vending_top_mapeada.ddc"
 
 # 11. FINALIZAR
-puts "\n============================================================"
+puts "\n=============================================================="
 puts "SINTESE CONCLUIDA COM SUCESSO!"
 puts "=============================================================="
 exit
